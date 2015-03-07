@@ -1,4 +1,10 @@
 ---
+- name: Install tools for adding PPA repositories
+  sudo: yes
+  apt: name={{ item }} state=latest
+  with_items:
+    - python-software-properties
+    - software-properties-common
 - name: Install Python dependencies
   sudo: true
   apt: name={{ item }} state=latest
@@ -7,17 +13,38 @@
     - gcc
 - include: deadsnakes.yml
 - include: pip.yml
-- include: python-version.yml version=2.6
-- include: python-version.yml version=3.3
-- include: python-version.yml version=3.4
-- include: python-version.yml version=2.7
+- name: Install python
+  apt: name=python{{ item.version }} state=latest
+  sudo: true
+  with_items: python_dev_versions
+- name: Install python-dev
+  apt: name=python{{ item.version }}-dev state=latest
+  sudo: true
+  with_items: python_dev_versions
+- name: Install easy_install from source
+  sudo: yes
+  command: "python{{item.version}} /tmp/ez_setup.py"
+  args:
+    creates: "/usr/local/bin/easy_install-{{item.version}}"
+  with_items: python_dev_versions
+- name: Install pip from source
+  sudo: yes
+  command: "python{{item.version}} /tmp/get-pip.py"
+  args:
+    creates: "/usr/local/bin/pip{{item.version}}"
+  with_items: python_dev_versions
+- name: Install wheel
+  sudo: yes
+  command: "pip{{item.version}} install wheel"
+  args:
+    creates: "/usr/local/lib/python{{item.version}}/dist-packages/wheel"
+  with_items: python_dev_versions
 - include: pypy.yml
 - name: Install Python tools
   pip: name={{ item }}
   sudo: true
   with_items:
     - tox
-    - detox
     - virtualenv
     - virtualenvwrapper
     - wheel

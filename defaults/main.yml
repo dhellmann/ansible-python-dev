@@ -1,2 +1,6 @@
 ---
-# defaults file for python-dev
+python_dev_versions:
+  - version: "2.6"
+  - version: "3.3"
+  - version: "3.4"
+  - version: "2.7"
