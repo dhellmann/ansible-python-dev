@@ -1,0 +1,22 @@
+---
+- name: Install Python {{ version }}
+  apt: name={{ item }} state=latest
+  sudo: true
+  with_items:
+    - python{{ version }}
+    - python{{ version }}-dev
+- name: Install easy_install from source for {{version}}
+  sudo: yes
+  command: "python{{version}} /tmp/ez_setup.py"
+  args:
+    creates: "/usr/local/bin/easy_install-{{version}}"
+- name: Install pip from source for {{version}}
+  sudo: yes
+  command: "python{{version}} /tmp/get-pip.py"
+  args:
+    creates: "/usr/local/bin/pip{{version}}"
+- name: Install wheel for {{version}}
+  sudo: yes
+  command: "pip{{version}} install wheel"
+  args:
+    creates: "/usr/local/lib/python{{version}}/dist-packages/wheel"

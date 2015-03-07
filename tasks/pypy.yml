@@ -1,0 +1,11 @@
+---
+- name: Add PyPy PPA repository
+  sudo: yes
+  apt_repository: repo=ppa:pypy/ppa state=present
+- name: Install PyPy
+  apt: name={{ item }} state=latest
+  sudo: true
+  with_items:
+    - pypy
+    - pypy-dev
+    - python-cffi
