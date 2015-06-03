@@ -1,4 +1,5 @@
 ---
+python_dev_wheelhouse: "{{ansible_env.HOME}}/.pip/wheelhouse"
 python_dev_versions:
   - version: "2.6"
   - version: "3.3"

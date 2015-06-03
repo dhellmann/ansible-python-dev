@@ -5,14 +5,16 @@
   with_items:
     - python-software-properties
     - software-properties-common
+
 - name: Install Python dependencies
   sudo: true
   apt: name={{ item }} state=latest
   with_items:
     - libffi-dev
     - gcc
+
 - include: deadsnakes.yml
-- include: pip.yml
+- include: pypy.yml
 - name: Install python
   apt: name=python{{ item.version }} state=latest
   sudo: true
@@ -21,6 +23,8 @@
   apt: name=python{{ item.version }}-dev state=latest
   sudo: true
   with_items: python_dev_versions
+
+- include: pip.yml
 - name: Install easy_install from source
   sudo: yes
   command: "python{{item.version}} /tmp/ez_setup.py"
@@ -33,13 +37,21 @@
   args:
     creates: "/usr/local/bin/pip{{item.version}}"
   with_items: python_dev_versions
-- name: Install wheel
-  sudo: yes
-  command: "pip{{item.version}} install wheel"
-  args:
-    creates: "/usr/local/lib/python{{item.version}}/dist-packages/wheel"
-  with_items: python_dev_versions
-- include: pypy.yml
+
+- name: Create ~/.pip/wheelhouse
+  file: path={{python_dev_wheelhouse}}
+        state=directory
+- name: ~/.pip.conf
+  template: src=pip.conf
+            dest={{ansible_env.HOME}}/.pip/pip.conf
+
+- name: Install pip tools
+  pip: name={{ item[1] }} executable=pip{{item[0].version}}
+  sudo: true
+  with_nested:
+    - python_dev_versions
+    - [ 'wheel', 'certifi', 'pyopenssl', 'pyasn1', 'ndg-httpsclient' ]
+
 - name: Install Python tools
   pip: name={{ item }}
   sudo: true
@@ -48,4 +60,3 @@
     - virtualenv
     - virtualenvwrapper
     - wheel
-    - certifi # certificate checking library used by requests/urllib3 within pip
