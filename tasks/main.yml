@@ -48,3 +48,4 @@
     - virtualenv
     - virtualenvwrapper
     - wheel
+    - certifi # certificate checking library used by requests/urllib3 within pip
