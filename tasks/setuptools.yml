@@ -1,0 +1,13 @@
+---
+- name: Remove system packages for python utilities
+  sudo: yes
+  apt: name={{ item }} state=absent
+  with_items:
+    - python-setuptools
+    - python3-setuptools
+    - python-setuptools-whl
+    - python-pkg-resources
+    - python3-pkg-resources
+    - python-virtualenv
+    - python-tox
+    - python-chardet-whl
