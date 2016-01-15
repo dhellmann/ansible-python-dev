@@ -23,6 +23,9 @@
   apt: name=python{{ item.version }}-dev state=latest
   sudo: true
   with_items: python_dev_versions
+- name: Install extra python support libs
+  sudo: true
+  apt: name=python-gdbm state=latest
 
 - include: pip.yml
 - name: Install easy_install from source
