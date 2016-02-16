@@ -59,6 +59,7 @@
   pip: name={{ item }}
   sudo: true
   with_items:
+    - pbr
     - tox
     - virtualenv
     - virtualenvwrapper
