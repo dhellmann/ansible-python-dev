@@ -56,7 +56,7 @@
     - [ 'wheel', 'certifi', 'pyopenssl', 'pyasn1', 'ndg-httpsclient' ]
 
 - name: Install Python tools
-  pip: name={{ item }}
+  pip: name={{ item }} state=latest
   sudo: true
   with_items:
     - pbr
