@@ -8,7 +8,7 @@
 
 - name: Install Python dependencies
   sudo: true
-  apt: name={{ item }} state=latest
+  apt: name={{ item }} state=latest update_cache=true
   with_items:
     - libffi-dev
     - gcc
