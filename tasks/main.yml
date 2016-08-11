@@ -48,6 +48,13 @@
   template: src=pip.conf
             dest={{ansible_env.HOME}}/.pip/pip.conf
 
+- name: Install OpenSSL
+  sudo: true
+  apt: name={{item}}
+  with_items:
+    - openssl
+    - libssl-dev
+
 - name: Install pip tools
   pip: name={{ item[1] }} executable=pip{{item[0].version}}
   sudo: true
