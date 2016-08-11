@@ -3,6 +3,6 @@
   apt: name=python-pip state=absent
   sudo: yes
 - name: Download ez_setup.py
-  get_url: url=https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py dest=/tmp/ez_setup.py mode=0755
+  get_url: url=https://bootstrap.pypa.io/ez_setup.py dest=/tmp/ez_setup.py mode=0755
 - name: Download get-pip.py
-  get_url: url=https://raw.github.com/pypa/pip/master/contrib/get-pip.py dest=/tmp/get-pip.py mode=0755
+  get_url: url=https://bootstrap.pypa.io/get-pip.py dest=/tmp/get-pip.py mode=0755
