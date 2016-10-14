@@ -62,6 +62,7 @@
     - python_dev_versions
     - [ 'wheel', 'certifi', 'pyopenssl', 'pyasn1', 'ndg-httpsclient' ]
 
+- include: setuptools.yml
 - name: Install Python tools
   pip: name={{ item }} state=latest
   sudo: true

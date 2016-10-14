@@ -29,6 +29,18 @@ Dependencies
 
 None
 
+Example Usage
+-------------
+
+The following initial steps will download this current ansible role,
+configure a default playbook, and run.  These steps require the
+installation of ansible on your system.
+
+$ git clone https://github.com/dhellmann/ansible-python-dev.git
+$ cp ansible-python-dev/ansible.yml.example ansible.yml
+# Adjust ansible.yml if you would like to install on a different server
+$ ansible-playbook ansible.yml
+
 Example Playbook
 ----------------
 
