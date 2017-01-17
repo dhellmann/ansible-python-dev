@@ -1,7 +1,7 @@
 ---
 - name: Remove system package for pip
   apt: name=python-pip state=absent
-  sudo: yes
+  become: true
 - name: Download ez_setup.py
   get_url: url=https://bootstrap.pypa.io/ez_setup.py dest=/tmp/ez_setup.py mode=0755
 - name: Download get-pip.py
