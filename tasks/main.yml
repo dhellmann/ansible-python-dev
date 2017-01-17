@@ -41,7 +41,10 @@
     creates: "/usr/local/bin/pip'{{item.version}}'"
   with_items: '{{python_dev_versions}}'
 
-- name: Create ~/.pip/wheelhouse
+- name: Create ~/.pip
+  file: path='{{ansible_env.HOME}}'/.pip
+        state=directory
+- name: Create pip wheelhouse
   file: path='{{python_dev_wheelhouse}}'
         state=directory
 - name: ~/.pip.conf
