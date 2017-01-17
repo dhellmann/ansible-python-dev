@@ -59,10 +59,10 @@
     - libssl-dev
 
 - name: Install pip tools
-  pip: name='{{ item[1] }}' executable=pip'{{item[0].version}}'
+  pip: name='{{ item[1] }}' executable=pip{{item[0].version}}
   become: true
   with_nested:
-    - python_dev_versions
+    - '{{python_dev_versions}}'
     - [ 'wheel', 'certifi', 'pyopenssl', 'pyasn1', 'ndg-httpsclient' ]
 
 - name: Install Python tools
