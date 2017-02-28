@@ -27,13 +27,11 @@
   become: true
   apt: name=python-gdbm state=latest
 
-- include: pip.yml
-- name: Install easy_install from source
+- name: Remove system package for pip
+  apt: name=python-pip state=absent
   become: true
-  command: "'python{{item.version}}' /tmp/ez_setup.py"
-  args:
-    creates: "/usr/local/bin/easy_install-'{{item.version}}'"
-  with_items: '{{python_dev_versions}}'
+- name: Download get-pip.py
+  get_url: url=https://bootstrap.pypa.io/get-pip.py dest=/tmp/get-pip.py mode=0755
 - name: Install pip from source
   become: true
   command: "python'{{item.version}}' /tmp/get-pip.py"
