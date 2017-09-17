@@ -50,7 +50,7 @@
         state=directory
 - name: ~/.pip.conf
   template: src=pip.conf
-            dest='{{ansible_env.HOME}}'/.pip/pip.conf
+            dest={{ansible_env.HOME}}/.pip/pip.conf
 
 - name: Install OpenSSL
   become: true
