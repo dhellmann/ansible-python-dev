@@ -1,0 +1,4 @@
+---
+- name: Add Python 2.6 repository
+  become: true
+  apt_repository: repo=ppa:fkrull/deadsnakes state=present

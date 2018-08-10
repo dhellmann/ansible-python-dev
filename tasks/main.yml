@@ -13,6 +13,7 @@
     - libffi-dev
     - gcc
 
+- include: deadsnakes.yml
 - include: pypy.yml
 - name: Install python
   apt: name=python{{ item.version }} state=latest
