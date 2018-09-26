@@ -1,4 +1,4 @@
 ---
 - name: Add Dead Snakes Python package repository
   become: true
-  apt_repository: repo=ppa:fkrull/deadsnakes state=present
+  apt_repository: repo=ppa:deadsnakes/ppa state=present
