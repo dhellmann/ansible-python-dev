@@ -1,17 +1,20 @@
 ---
 - name: Install tools for adding PPA repositories
   become: true
-  apt: name='{{ item }}' state=latest
-  with_items:
-    - python-software-properties
-    - software-properties-common
+  apt:
+    name: software-properties-common
+    state: latest
 
 - name: Install Python dependencies
   become: true
-  apt: name='{{ item }}' state=latest update_cache=true
-  with_items:
-    - libffi-dev
-    - gcc
+  apt:
+    name:
+      - libffi-dev
+      - gcc
+      - openssl
+      - libssl-dev
+    state: latest
+    update_cache: true
 
 - include: deadsnakes.yml
 - include: pypy.yml
@@ -51,13 +54,6 @@
 - name: ~/.pip.conf
   template: src=pip.conf
             dest={{ansible_env.HOME}}/.pip/pip.conf
-
-- name: Install OpenSSL
-  become: true
-  apt: name='{{item}}'
-  with_items:
-    - openssl
-    - libssl-dev
 
 - name: Install pip tools
   pip: name='{{ item[1] }}' executable=pip{{item[0].version}}

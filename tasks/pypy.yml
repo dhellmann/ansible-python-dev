@@ -4,10 +4,11 @@
   apt_repository: repo=ppa:pypy/ppa state=present
   when: python_dev_install_pypy
 - name: Install PyPy
-  apt: name={{ item }} state=latest
+  apt:
+    name:
+      - pypy
+      - pypy-dev
+      - python-cffi
+    state: latest
   become: true
-  with_items:
-    - pypy
-    - pypy-dev
-    - python-cffi
   when: python_dev_install_pypy
