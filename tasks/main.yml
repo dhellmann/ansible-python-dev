@@ -63,11 +63,12 @@
     - [ 'wheel', 'certifi', 'pyopenssl', 'pyasn1', 'ndg-httpsclient' ]
 
 - name: Install Python tools
-  pip: name='{{ item }}' state=latest
+  pip:
+    state: latest
+    name:
+      - pbr
+      - tox
+      - virtualenv
+      - virtualenvwrapper
+      - wheel
   become: true
-  with_items:
-    - pbr
-    - tox
-    - virtualenv
-    - virtualenvwrapper
-    - wheel
