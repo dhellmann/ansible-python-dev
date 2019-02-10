@@ -50,7 +50,7 @@
   become: true
   command: "python'{{item.version}}' /tmp/get-pip.py"
   args:
-    creates: "/usr/local/bin/pip'{{item.version}}'"
+    creates: "/usr/local/bin/pip{{item.version}}"
   with_items: '{{python_dev_versions}}'
 
 - name: Create ~/.pip
