@@ -91,4 +91,5 @@
       - virtualenv
       - virtualenvwrapper
       - wheel
+      - flake8
   become: true
