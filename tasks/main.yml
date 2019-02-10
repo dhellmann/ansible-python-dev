@@ -26,9 +26,16 @@
   apt: name=python{{ item.version }}-dev state=latest
   become: true
   with_items: '{{python_dev_versions}}'
-- name: Install python-venv
-  apt: name=python3-venv state=latest
+- name: Remove system package for virtualenv
+  apt:
+    name: python3-venv
+    state: absent
   become: true
+- name: Install virtualenv
+  pip:
+    name: virtualenv
+    state: latest
+    extra_args: "--user"
 - name: Install extra python support libs
   become: true
   apt: name=python-gdbm state=latest
