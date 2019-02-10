@@ -82,14 +82,12 @@
   become: true
 
 - name: Install Python tools
-  pip:
-    executable: pip3
-    state: latest
-    name:
-      - pbr
-      - tox
-      - virtualenv
-      - virtualenvwrapper
-      - wheel
-      - flake8
   become: true
+  command: "python3 -m pip install -U {{item}}"
+  with_items:
+    - pbr
+    - tox
+    - virtualenv
+    - virtualenvwrapper
+    - wheel
+    - flake8
