@@ -26,7 +26,7 @@
       - "python{{ item.version }}-dev"
       - "python{{ item.version }}-venv"
     state: latest
-  with_items: '{{python_dev_versions}}'
+  with_items: "{{ python_dev_versions }}"
 - name: Install extra python support libs
   become: true
   apt:
@@ -45,31 +45,31 @@
     mode: 0755
 - name: Install pip from source
   become: true
-  command: "python'{{item.version}}' /tmp/get-pip.py"
+  command: "python{{ item.version }} /tmp/get-pip.py"
   args:
-    creates: "/usr/local/bin/pip{{item.version}}"
-  with_items: '{{python_dev_versions}}'
+    creates: "/usr/local/bin/pip{{ item.version }}"
+  with_items: "{{ python_dev_versions }}"
 
 - name: Create ~/.pip
   file:
-    path: "{{ansible_env.HOME}}/.pip"
+    path: "{{ ansible_env.HOME }}/.pip"
     state: directory
 - name: Create pip wheelhouse
   file:
-    path: "{{python_dev_wheelhouse}}"
+    path: "{{ python_dev_wheelhouse }}"
     state: directory
 - name: ~/.pip.conf
   template:
     src: pip.conf
-    dest: "{{ansible_env.HOME}}/.pip/pip.conf"
+    dest: "{{ ansible_env.HOME }}/.pip/pip.conf"
 
 - name: Install pip tools
   pip:
     name: "{{ item[1] }}"
-    executable: pip{{item[0].version}}
+    executable: "pip{{ item[0].version }}"
   become: true
   with_nested:
-    - '{{python_dev_versions}}'
+    - "{{ python_dev_versions }}"
     - [ 'wheel', 'certifi', 'pyopenssl', 'pyasn1', 'ndg-httpsclient' ]
 
 - name: Remove system package for virtualenv
@@ -80,7 +80,8 @@
 
 - name: Install Python tools
   become: true
-  command: "python3 -m pip install -U {{item}}"
+  pip:
+    name: "{{ item }}"
   with_items:
     - pbr
     - tox
